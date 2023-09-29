@@ -4,24 +4,11 @@ import datetime
 import sqlite3
 import os
 import os.path
-##############################################################################################################################################################
-
-################################################################################## FUNCTIONS/PROOCEDURES BELOW ###############################################
-def sqlExecutor(sql):
-	databaseConnection = sqlite3.connect(databaseFile)
-	localCursor = databaseConnection.cursor()
-	localCursor.executescript(*sql)
-	databaseConnection.commit()
-	databaseConnection.close()
-####
-##############################################################################################################################################################
-
-################################################################################## MAIN CODE BELOW ########################################################### 
 databaseFile = 'zooAppDB.db'
 #if os.path.exists(databaseFile):
 #    os.remove(databaseFile)
 #####
-#sqlExecutor(["""
+sqlCode = ["""
 #CREATE TABLE "zooAppDB_userdata" (
 #	"user_ID"	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
 #	"user_forename"	TEXT,
@@ -47,4 +34,19 @@ databaseFile = 'zooAppDB.db'
 #	"feedback_stars" TEXT,
 #	"feedback_date" TEXT
 #);
-#"""])
+#"""]
+##############################################################################################################################################################
+
+################################################################################## FUNCTIONS/PROOCEDURES BELOW ###############################################
+def sqlExecutor(sql):
+	# Executes and commits sqlCode to database
+	databaseConnection = sqlite3.connect(databaseFile)
+	localCursor = databaseConnection.cursor()
+	localCursor.executescript(*sql)
+	databaseConnection.commit()
+	databaseConnection.close()
+####
+##############################################################################################################################################################
+
+################################################################################## MAIN CODE BELOW ########################################################### 
+sqlExecutor(sqlCode)
